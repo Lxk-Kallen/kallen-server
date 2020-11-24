@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author ${author}
+ * @email LXK00515@163.com
  * @since ${date}
  */
 <#if table.convert>

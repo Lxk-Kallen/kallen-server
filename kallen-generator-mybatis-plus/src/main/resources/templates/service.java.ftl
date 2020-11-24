@@ -9,6 +9,7 @@ import ${superServiceClassPackage};
  * </p>
  *
  * @author ${author}
+ * @email LXK00515@163.com
  * @since ${date}
  */
 <#if kotlin>

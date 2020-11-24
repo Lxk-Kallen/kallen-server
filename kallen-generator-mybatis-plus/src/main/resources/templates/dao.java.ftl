@@ -5,10 +5,11 @@ import ${superMapperClassPackage};
 
 /**
  * <p>
- * ${table.comment!} Mapper 接口
+ * ${table.comment!} 持久层接口
  * </p>
  *
  * @author ${author}
+ * @email LXK00515@163.com
  * @since ${date}
  */
 <#if kotlin>

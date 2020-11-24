@@ -21,6 +21,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author ${author}
+ * @email LXK00515@163.com
  * @since ${date}
  */
 <#if entityLombokModel>
