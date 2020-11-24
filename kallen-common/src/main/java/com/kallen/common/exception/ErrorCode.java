@@ -23,4 +23,5 @@ public interface ErrorCode {
 
     // 系统模块
     int PARAMS_GET_ERROR = 10003;
+    int SEND_SMS_ERROR = 10025;
 }

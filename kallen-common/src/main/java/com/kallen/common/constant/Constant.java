@@ -14,6 +14,22 @@ package com.kallen.common.constant;
  * </pre>
  */
 public interface Constant {
+
+    /**
+     * 成功
+     */
+    int SUCCESS = 1;
+
+    /**
+     * 失败
+     */
+    int FAIL = 0;
+
+    /**
+     * OK
+     */
+    String OK = "OK";
+
     /**
      * token header
      */
@@ -48,4 +64,34 @@ public interface Constant {
      * 升序
      */
     String ASC = "asc";
+
+    /**
+     * 短信服务商
+     */
+    enum SmsService {
+        /**
+         * 阿里云
+         */
+        ALIYUN(1),
+
+        /**
+         * 腾讯云
+         */
+        QCLOUD(2),
+
+        /**
+         * 七牛
+         */
+        QINIU(3);
+
+        private int value;
+
+        SmsService(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 }

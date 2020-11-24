@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 /**
  * <p>Title: CodeGenerator</p >
- * <p>Description: </p >
+ * <p>Description: 执行 main 方法控制台输入模块表名回车自动生成对应项目目录中</p >
  * <p>Copyright: Kallen. Copyright(c) 2020</p >
  * <link>http://www.buqu.icu</link>
  * <p>版权所有，侵权必究！</p >
@@ -28,7 +28,6 @@ import java.util.Scanner;
  * </pre>
  * @mail LXK00515@163.com
  */
-// 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
 public class CodeGenerator {
 
     /**
@@ -129,7 +128,7 @@ public class CodeGenerator {
          templateConfig.setServiceImpl("templates/serviceImpl.java");
          templateConfig.setMapper("templates/dao.java");
          templateConfig.setXml("templates/dao.xml");
-         
+
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);

@@ -19,7 +19,6 @@
     <modules>
         <module>kallen-api</module>
         <module>kallen-common</module>
-        <module>kallen-generator</module>
         <module>kallen-generator-mybatis-plus</module>
     </modules>
 
@@ -31,6 +30,8 @@
         <lombok.version>1.18.4</lombok.version>
         <guava.version>20.0</guava.version>
         <mybatisplus.version>3.3.1</mybatisplus.version>
+        <commons.lang.version>3.9</commons.lang.version>
+        <fastjson.version>1.2.71</fastjson.version>
     </properties>
 
     <dependencies>
@@ -93,6 +94,17 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <dependency>
