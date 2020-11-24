@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>kallen-server</artifactId>
+        <groupId>com.kallen</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>kallen-api</artifactId>
+    <packaging>jar</packaging>
+    <description>kallen-api</description>
+
+    <properties>
+        <version.hutool>5.4.0</version.hutool>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.kallen</groupId>
+            <artifactId>kallen-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- 重试机制 -->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${version.hutool}</version>
+        </dependency>
+    </dependencies>
+
+</project>

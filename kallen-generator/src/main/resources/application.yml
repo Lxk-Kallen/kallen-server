@@ -1,0 +1,30 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /kallen-generator
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    # Mysql配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://81.68.188.195:3306/kallen?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  resources:
+    static-locations: classpath:/static/,classpath:/views/
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+# 指定数据库
+kallen:
+  datebase: mysql
