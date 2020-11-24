@@ -87,7 +87,7 @@ public class CodeGenerator {
         };
 
         // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+        String templatePath = "/templates/dao.xml.ftl";
         // 如果模板引擎是 velocity
 //         String templatePath = "/templates/Dao.xml.vm";
 
@@ -98,8 +98,8 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/Dao/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Dao" + StringPool.DOT_XML;
+                return projectPath + "/src/main/resources/dao/" + pc.getModuleName()
+                        + "/" + tableInfo.getEntityName() + "dao" + StringPool.DOT_XML;
             }
         });
         /*cfg.setFileCreate(new IFileCreate() {
@@ -127,8 +127,9 @@ public class CodeGenerator {
          templateConfig.setService("templates/service.java");
          templateConfig.setController("templates/controller.java");
          templateConfig.setServiceImpl("templates/serviceImpl.java");
-         templateConfig.setMapper("templates/mapper.java");
-         templateConfig.setXml("templates/mapper.xml");
+         templateConfig.setMapper("templates/dao.java");
+         templateConfig.setXml("templates/dao.xml");
+         
 
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);

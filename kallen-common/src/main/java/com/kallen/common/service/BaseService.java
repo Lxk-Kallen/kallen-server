@@ -2,6 +2,7 @@ package com.kallen.common.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -92,4 +93,26 @@ public interface BaseService<T> {
      * @since 2020/11/20 16:12
     */
     boolean updateBatchById(Collection<T> entityList, int batchSize);
+
+    /**
+     * <p>根据 ID 查询</p>
+     *
+     * @param id            主键ID
+     * @return {@link T}    查询结果
+     * @author Kallen
+     * @since 2020/11/24 11:12
+     */
+    T selectById(Serializable id);
+
+    /**
+     * <p>根据 ID 删除</p>
+     *
+     * @param id                主键ID
+     * @return {@link boolean}  true/false
+     * @author Kallen
+     * @since 2020/11/24 11:14
+    */
+    boolean deleteById(Serializable id);
+
+    boolean deleteBatchIds(Collection<? extends Serializable> idList);
 }

@@ -23,4 +23,29 @@ public interface Constant {
      * 实体类
      */
     String ENTITY = "et";
+
+    /**
+     * 当前页码
+     */
+    String PAGE = "page";
+
+    /**
+     * 每页显示记录数
+     */
+    String LIMIT = "limit";
+
+    /**
+     * 排序字段
+     */
+    String ORDER_FIELD = "orderField";
+
+    /**
+     * 排序方式
+     */
+    String ORDER = "order";
+
+    /**
+     * 升序
+     */
+    String ASC = "asc";
 }

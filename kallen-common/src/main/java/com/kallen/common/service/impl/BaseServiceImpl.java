@@ -3,19 +3,29 @@ package com.kallen.common.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.kallen.common.constant.Constant;
+import com.kallen.common.exception.KallenException;
+import com.kallen.common.page.PageDate;
 import com.kallen.common.service.BaseService;
+import com.kallen.common.utils.ConvertUtils;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title: BaseServiceImpl</p >
@@ -58,7 +68,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 15:44
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean insertBatch(Collection<T> entityList) {
         return insertBatch(entityList, 100);
     }
@@ -85,7 +95,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 15:59
     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean insertBatch(Collection<T> entityList, int batchSize) {
         SqlSession batchSqlSession = sqlSessionBatch();
         int i = 0;
@@ -114,7 +124,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 16:02
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean updateById(T entity) {
         return BaseServiceImpl.retBool(baseDao.updateById(entity));
     }
@@ -129,7 +139,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 16:06
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean update(T entity, Wrapper<T> updateWrapper) {
         return BaseServiceImpl.retBool(baseDao.update(entity, updateWrapper));
     }
@@ -143,7 +153,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 16:09
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean updateBatchById(Collection<T> entityList) {
         return updateBatchById(entityList, 30);
     }
@@ -158,7 +168,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
      * @since 2020/11/20 16:12
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = KallenException.class)
     public boolean updateBatchById(Collection<T> entityList, int batchSize) {
         if (CollectionUtils.isEmpty(entityList)) {
             throw new IllegalArgumentException("实体对象集合不能为空");
@@ -181,6 +191,39 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
             closeSqlSession(batchSqlSession);
         }
         return true;
+    }
+
+    /**
+     * <p>根据ID查询</p>
+     *
+     * @param id            主键ID
+     * @return {@link T}    查询结果
+     * @author Kallen
+     * @since 2020/11/24 11:12
+    */
+    @Override
+    public T selectById(Serializable id) {
+        return baseDao.selectById(id);
+    }
+
+    /**
+     * <p>根据 ID 删除</p>
+     *
+     * @param id                主键ID
+     * @return {@link boolean}  true/false
+     * @author Kallen
+     * @since 2020/11/24 11:14
+     */
+    @Override
+    @Transactional(rollbackFor = KallenException.class)
+    public boolean deleteById(Serializable id) {
+        return SqlHelper.retBool(baseDao.deleteById(id));
+    }
+
+    @Override
+    @Transactional(rollbackFor = KallenException.class)
+    public boolean deleteBatchIds(Collection<? extends Serializable> idList) {
+        return SqlHelper.retBool(baseDao.deleteBatchIds(idList));
     }
 
     /**
@@ -227,5 +270,72 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
     */
     protected void closeSqlSession(SqlSession sqlSession) {
         SqlSessionUtils.closeSqlSession(sqlSession, GlobalConfigUtils.currentSessionFactory(currentModelClass()));
+    }
+
+    /**
+     * <p>获取分页对象</p>
+     *
+     * @param params    分页查询参数
+     * @param defaultOrderField
+     * @param isAsc
+     * @author Kallen
+     * @since 2020/11/24 11:26
+     */
+    protected IPage<T> getPage(Map<String, Object> params, String defaultOrderField, boolean isAsc) {
+
+        // 分页参数
+        long curPage = 1;
+        long limit = 10;
+
+        if (params.get(Constant.PAGE) != null) {
+            curPage = Long.parseLong((String) params.get(Constant.PAGE));
+        }
+
+        if (params.get(Constant.LIMIT) != null) {
+            limit = Long.parseLong((String) params.get(Constant.LIMIT));
+        }
+
+        // 分页对象
+        Page<T> page = new Page<>(curPage, limit);
+
+        // 分页参数
+        params.put(Constant.PAGE, page);
+
+        // 排序字段
+        String orderField = (String) params.get(Constant.ORDER_FIELD);
+        String order = (String) params.get(Constant.ORDER);
+
+        // 前端字段排序
+        if (StringUtils.isNotBlank(orderField) && StringUtils.isNotBlank(order)) {
+            if (Constant.ASC.equalsIgnoreCase(order)) {
+                return page.addOrder(OrderItem.asc(orderField));
+            }else {
+                return page.addOrder(OrderItem.desc(orderField));
+            }
+        }
+
+        // 没有排序子弹，则不排序
+        if (StringUtils.isBlank(defaultOrderField)) {
+            return page;
+        }
+
+        // 默认排序
+        if (isAsc) {
+            page.addOrder(OrderItem.asc(defaultOrderField));
+        }else {
+            page.addOrder(OrderItem.desc(defaultOrderField));
+        }
+
+        return page;
+    }
+
+    protected <T> PageDate<T> getPageDate(List<?> list, long total, Class<T> target) {
+        List<T> targetList = ConvertUtils.sourceToTarget(list, target);
+
+        return new PageDate<>(targetList, total);
+    }
+
+    protected <T> PageDate<T> getPageDate(IPage page, Class<T> target) {
+        return getPageDate(page.getRecords(), page.getTotal(), target);
     }
 }
