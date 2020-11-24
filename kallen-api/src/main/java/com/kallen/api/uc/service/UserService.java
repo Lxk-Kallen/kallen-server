@@ -28,5 +28,5 @@ public interface UserService extends CrudService<UserEntity, UserDTO> {
      * @author Kallen
      * @since 2020/11/24 14:15
     */
-    void sendCode(SendCodeReq sendCodeReq);
+    String sendCode(SendCodeReq sendCodeReq);
 }

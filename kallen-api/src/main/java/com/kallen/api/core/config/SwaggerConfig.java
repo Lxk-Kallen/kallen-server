@@ -47,7 +47,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
-                .directModelSubstitute(Date.class, String.class)
+                .directModelSubstitute(java.util.Date.class, String.class)
                 .securitySchemes(security());
     }
 
@@ -62,7 +62,7 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder()
                 .title("Kallen")
-                .description("kallen-api接口文档" + "版本：" + ApiConstant.KALLEN)
+                .description("kallen-api接口文档" + "版本：" + ApiConstant.KALLEN + "")
                 .termsOfServiceUrl("http://www.buqu.icu")
                 .version("" + ApiConstant.KALLEN_VERSION)
                 .build();

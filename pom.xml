@@ -32,6 +32,7 @@
         <mybatisplus.version>3.3.1</mybatisplus.version>
         <commons.lang.version>3.9</commons.lang.version>
         <fastjson.version>1.2.71</fastjson.version>
+        <jedis.version>2.9.0</jedis.version>
     </properties>
 
     <dependencies>
@@ -65,6 +66,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
 
         <dependency>
