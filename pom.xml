@@ -33,6 +33,7 @@
         <commons.lang.version>3.9</commons.lang.version>
         <fastjson.version>1.2.71</fastjson.version>
         <jedis.version>2.9.0</jedis.version>
+        <docker.plugin.version>1.1.1</docker.plugin.version>
     </properties>
 
     <dependencies>
@@ -126,14 +127,14 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 
 </project>

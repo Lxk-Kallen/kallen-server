@@ -44,7 +44,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 //加了ApiOperation注解的类，生成接口文档
-                .apis(RequestHandlerSelectors.withClassAnnotation(ApiOperation.class))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
                 .directModelSubstitute(java.util.Date.class, String.class)

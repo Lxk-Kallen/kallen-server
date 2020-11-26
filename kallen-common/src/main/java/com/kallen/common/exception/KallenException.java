@@ -2,8 +2,6 @@ package com.kallen.common.exception;
 
 import com.kallen.common.utils.MessageUtils;
 import lombok.Data;
-import net.bytebuddy.implementation.bytecode.Throw;
-import sun.plugin2.message.Message;
 
 /**
  * <p>Title: KallenException</p >
