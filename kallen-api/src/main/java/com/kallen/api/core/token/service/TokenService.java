@@ -44,7 +44,7 @@ public interface TokenService {
      * @author Kallen
      * @since 2020/11/26 12:12
     */
-    Long getUserByToken(String token);
+    Long getUserIdByToken(String token);
 
     /**
      * <p>设置token过期</p>

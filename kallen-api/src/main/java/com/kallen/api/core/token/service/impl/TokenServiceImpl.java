@@ -84,7 +84,7 @@ public class TokenServiceImpl implements TokenService {
      * @since 2020/11/26 12:12
      */
     @Override
-    public Long getUserByToken(String token) {
+    public Long getUserIdByToken(String token) {
         String tokeToTokenKey = RedisKey.getTokenKeyByToken(token);
         if (isTokenExist(token)) {
             String cacheValue = redisUtil.get(tokeToTokenKey);

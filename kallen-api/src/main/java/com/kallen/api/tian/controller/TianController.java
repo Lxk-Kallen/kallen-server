@@ -1,5 +1,7 @@
 package com.kallen.api.tian.controller;
 
+import com.kallen.api.core.annotation.Login;
+import com.kallen.api.core.annotation.LoginUser;
 import com.kallen.api.tian.service.TianService;
 import com.kallen.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
@@ -33,31 +35,37 @@ public class TianController {
     private TianService tianService;
 
     @GetMapping("/pyqwenan")
+    @Login
     public Result<Map<String, Object>> wechatContent() {
         return new Result<Map<String, Object>>().ok(tianService.wechatContent());
     }
 
     @GetMapping("/dialogue")
+    @Login
     public Result<Map<String, Object>> dialogue() {
         return new Result<Map<String, Object>>().ok(tianService.dialogue());
     }
 
     @GetMapping("/caihp")
+    @Login
     public Result<Map<String, Object>> caihp() {
         return new Result<Map<String, Object>>().ok(tianService.caihp());
     }
 
     @GetMapping("/tiangou")
+    @Login
     public Result<Map<String, Object>> tiangou() {
         return new Result<Map<String, Object>>().ok(tianService.tiangou());
     }
 
     @GetMapping("/hotreview")
+    @Login
     public Result<Map<String, Object>> hotreview() {
         return new Result<Map<String, Object>>().ok(tianService.hotreview());
     }
 
     @GetMapping("/lzmy")
+    @Login
     public Result<Map<String, Object>> lzmy() {
         return new Result<Map<String, Object>>().ok(tianService.lzmy());
     }

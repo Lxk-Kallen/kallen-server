@@ -24,6 +24,8 @@ public interface ErrorCode {
     // 系统模块
     int PARAMS_GET_ERROR = 10003;
     int CAPTCHA_ERROR = 10007;
+    int TOKEN_NOT_EMPTY = 10020;
+    int TOKEN_INVALID = 10021;
     int SEND_SMS_ERROR = 10025;
-
+    int LOGIN_STATUS_HAS_EXPIRED = 10063;
 }

@@ -41,4 +41,14 @@ public interface UserService extends CrudService<UserEntity, UserDTO> {
      * @since 2020/11/24 17:38
     */
     LoginSuccessVO codeLogin(CodeLoginReq codeLoginReq);
+
+    /**
+     * <p>通过userId查询用户信息</p>
+     *
+     * @param userId            用户ID
+     * @return {@link UserDTO}  用户信息
+     * @author Kallen
+     * @since 2020/11/26 15:32
+    */
+    UserDTO getById(Long userId);
 }

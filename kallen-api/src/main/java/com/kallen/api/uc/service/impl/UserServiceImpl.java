@@ -127,6 +127,20 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
     }
 
     /**
+     * <p>通过userId查询用户信息</p>
+     *
+     * @param userId            用户ID
+     * @return {@link UserDTO}  用户信息
+     * @author Kallen
+     * @since 2020/11/26 15:32
+     */
+    @Override
+    public UserDTO getById(Long userId) {
+        UserEntity userEntity = baseDao.selectById(userId);
+        return userEntity == null ? null : ConvertUtils.sourceToTarget(userEntity, UserDTO.class);
+    }
+
+    /**
      * <p>获取用户账户，并登录</p>
      *
      * @param authUserAccountDTO        如果授权登录后获取到的信息，则包含账户主体和基本用户信息，其中账户主体至少需要包含account及type，且deleted为0
