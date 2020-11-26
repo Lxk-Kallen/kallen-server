@@ -1,17 +1,18 @@
-package com.kallen.api.uc.entity.dto;
+package com.kallen.api.uc.entity.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 /**
- * <p>Title: UserDTO</p >
- * <p>Description: 用户-数据传输实体</p >
+ * <p>Title: UserVO</p >
+ * <p>Description: 用户信息</p >
  * <p>Copyright: Kallen. Copyright(c) 2020</p >
  * <link>http://www.buqu.icu</link>
  * <p>版权所有，侵权必究！</p >
@@ -19,14 +20,14 @@ import java.util.Date;
  * @author Kallen
  * @version 1.0.0
  * <pre>History:
- *       2020/11/24    Kallen    Created
+ *       2020/11/26    Kallen    Created
  * </pre>
  * @mail LXK00515@163.com
  */
 @Data
-@ApiModel(value = "用户")
-public class UserDTO {
-
+@Accessors(chain = true)
+@ApiModel("用户信息")
+public class UserVO {
     @ApiModelProperty(value = "主键")
     private Long id;
 

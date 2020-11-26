@@ -3,11 +3,14 @@ package com.kallen.api.uc.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.kallen.common.entity.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>Title: UserEntity</p >
@@ -24,6 +27,8 @@ import java.time.LocalDateTime;
  * @mail LXK00515@163.com
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
+@TableName("uc_user")
 public class UserEntity extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -85,7 +90,7 @@ public class UserEntity extends BaseEntity {
     /**
      * 注册时间
      */
-    private LocalDateTime regTime;
+    private Date regTime;
 
     /**
      * 最近一次登录ip
@@ -95,7 +100,7 @@ public class UserEntity extends BaseEntity {
     /**
      * 最近一次登录时间
      */
-    private LocalDateTime lastLoginTime;
+    private Date lastLoginTime;
 
     /**
      * 备注
@@ -106,8 +111,8 @@ public class UserEntity extends BaseEntity {
      * 是否删除，字典：A01
      */
     @TableLogic
-    @TableField(value = "id_deleted", fill = FieldFill.INSERT)
-    private Integer deleted;
+    @TableField(value = "is_deleted", fill = FieldFill.INSERT)
+    private Boolean deleted;
 
     /**
      * 修改者
@@ -122,7 +127,7 @@ public class UserEntity extends BaseEntity {
     /**
      * 最后修改时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 微信号

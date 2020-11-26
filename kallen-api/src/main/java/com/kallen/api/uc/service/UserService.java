@@ -2,7 +2,9 @@ package com.kallen.api.uc.service;
 
 import com.kallen.api.uc.entity.UserEntity;
 import com.kallen.api.uc.entity.dto.UserDTO;
+import com.kallen.api.uc.entity.req.CodeLoginReq;
 import com.kallen.api.uc.entity.req.SendCodeReq;
+import com.kallen.api.uc.entity.vo.LoginSuccessVO;
 import com.kallen.common.service.CrudService;
 
 /**
@@ -29,4 +31,14 @@ public interface UserService extends CrudService<UserEntity, UserDTO> {
      * @since 2020/11/24 14:15
     */
     String sendCode(SendCodeReq sendCodeReq);
+
+    /**
+     * <p>验证码登录</p>
+     *
+     * @param codeLoginReq              入参实体
+     * @return {@link LoginSuccessVO}   用户基本信息，包含token信息
+     * @author Kallen
+     * @since 2020/11/24 17:38
+    */
+    LoginSuccessVO codeLogin(CodeLoginReq codeLoginReq);
 }

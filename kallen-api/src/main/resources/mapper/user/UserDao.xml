@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kallen.api.uc.dao.UserDao">
+
+    <select id="getByAccount" resultType="com.kallen.api.uc.entity.dto.UserDTO">
+        select u.* from uc_account c
+        left join uc_user u on c.user_id = u.id and c.is_deleted = 0
+        where c.account = #{account}
+          and c.type = #{type}
+          and c.is_deleted = 0
+        limit 1
+    </select>
+
+    <!--<update id="updateUserMobile">
+        update uc_user set mobile = #{phoneNumber} where id = #{userId}
+    </update>
+
+    <select id="selectXetUserIdsFromOld" resultType="java.lang.String">
+        select o.xet_user_id
+        from old_user o
+        limit #{offset}, #{pageSize}
+    </select>-->
+
+</mapper>

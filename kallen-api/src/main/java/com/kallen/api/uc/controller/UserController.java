@@ -2,8 +2,11 @@ package com.kallen.api.uc.controller;
 
 import com.kallen.api.core.annotation.ApiVersion;
 import com.kallen.api.core.constant.ApiConstant;
+import com.kallen.api.uc.entity.req.CodeLoginReq;
 import com.kallen.api.uc.entity.req.SendCodeReq;
+import com.kallen.api.uc.entity.vo.LoginSuccessVO;
 import com.kallen.api.uc.service.UserService;
+import com.kallen.common.utils.IpUtils;
 import com.kallen.common.utils.Result;
 import com.kallen.common.utils.ValidatorUtils;
 import io.swagger.annotations.Api;
@@ -44,7 +47,15 @@ public class UserController {
     public Result sendCode(@RequestBody SendCodeReq sendCodeReq, HttpServletRequest request) {
         ValidatorUtils.validateEntity(sendCodeReq);
 
-        userService.sendCode(sendCodeReq);
-        return new Result();
+        String code = userService.sendCode(sendCodeReq);
+        return new Result().ok(code);
+    }
+
+    @PostMapping("codeLogin")
+    @ApiOperation("验证码登录")
+    public Result<LoginSuccessVO> codeLogin(@RequestBody CodeLoginReq codeLoginReq, HttpServletRequest request) {
+        ValidatorUtils.validateEntity(codeLoginReq);
+        codeLoginReq.setIp(IpUtils.getIpAddr(request));
+        return new Result<LoginSuccessVO>().ok(userService.codeLogin(codeLoginReq));
     }
 }
