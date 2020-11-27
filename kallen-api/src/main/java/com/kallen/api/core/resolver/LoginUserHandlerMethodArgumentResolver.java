@@ -15,9 +15,18 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
- * 有@LoginUser注解的方法参数，注入当前登录用户
+ * <p>Title: LoginUserHandlerMethodArgumentResolver</p >
+ * <p>Description: 有@LoginUser注解的方法参数，注入当前登录用户</p >
+ * <p>Copyright: Kallen. Copyright(c) 2020</p >
+ * <link>http://www.buqu.icu</link>
+ * <p>版权所有，侵权必究！</p >
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Kallen
+ * @version 1.0.0
+ * <pre>History:
+ *       2020/11/26    Kallen    Created
+ * </pre>
+ * @mail LXK00515@163.com
  */
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {

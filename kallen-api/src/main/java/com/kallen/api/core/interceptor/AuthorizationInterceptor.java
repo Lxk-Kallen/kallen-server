@@ -15,9 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 权限(Token)验证
- * 有@Login注解的方法，注入当前登录用户,及TOKEN信息
- * @author Mark sunlightcs@gmail.com
+ * <p>Title: AuthorizationInterceptor</p >
+ * <p>Description:
+ *      权限(Token)验证
+ *      有@Login注解的方法，注入当前登录用户,及TOKEN信息
+ * </p >
+ * <p>Copyright: Kallen. Copyright(c) 2020</p >
+ * <link>http://www.buqu.icu</link>
+ * <p>版权所有，侵权必究！</p >
+ *
+ * @author Kallen
+ * @version 1.0.0
+ * <pre>History:
+ *       2020/11/26    Kallen    Created
+ * </pre>
+ * @mail LXK00515@163.com
  */
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
@@ -49,7 +61,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
         //token为空
         if(StringUtils.isBlank(token)){
-            throw new KallenException("token不能为空", ErrorCode.TOKEN_NOT_EMPTY);
+            throw new KallenException("token不能为空，请重新登录", ErrorCode.TOKEN_NOT_EMPTY);
         }
 
         //查询token信息

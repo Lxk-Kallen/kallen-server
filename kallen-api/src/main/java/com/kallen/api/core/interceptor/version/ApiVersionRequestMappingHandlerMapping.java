@@ -9,10 +9,19 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import java.lang.reflect.Method;
 
 /**
- * @author YC
- * @date 2018/11/11 上午10:23
+ * <p>Title: ApiVersionRequestMappingHandlerMapping</p >
+ * <p>Description: </p >
+ * <p>Copyright: Kallen. Copyright(c) 2020</p >
+ * <link>http://www.buqu.icu</link>
+ * <p>版权所有，侵权必究！</p >
+ *
+ * @author Kallen
+ * @version 1.0.0
+ * <pre>History:
+ *       2020/11/26    Kallen    Created
+ * </pre>
+ * @mail LXK00515@163.com
  */
-
 public class ApiVersionRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
     private final String prefix;
 

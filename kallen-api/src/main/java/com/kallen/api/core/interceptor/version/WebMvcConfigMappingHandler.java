@@ -31,8 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author YC
- * @date 2018/11/11 下午2:51
+ * <p>Title: WebMvcConfigMappingHandler</p >
+ * <p>Description: </p >
+ * <p>Copyright: Kallen. Copyright(c) 2020</p >
+ * <link>http://www.buqu.icu</link>
+ * <p>版权所有，侵权必究！</p >
+ *
+ * @author Kallen
+ * @version 1.0.0
+ * <pre>History:
+ *       2020/11/26    Kallen    Created
+ * </pre>
+ * @mail LXK00515@163.com
  */
 @SpringBootConfiguration
 public class WebMvcConfigMappingHandler extends WebMvcConfigurationSupport {

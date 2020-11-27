@@ -19,6 +19,7 @@
         <aliyun.core.version>3.2.2</aliyun.core.version>
         <aliyun.dysmsapi.version>1.1.0</aliyun.dysmsapi.version>
         <qcloud.qcloudsms.version>1.0.5</qcloud.qcloudsms.version>
+        <poi.version>4.1.2</poi.version>
     </properties>
 
     <dependencies>
@@ -80,6 +81,12 @@
             <groupId>com.github.qcloudsms</groupId>
             <artifactId>qcloudsms</artifactId>
             <version>${qcloud.qcloudsms.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
         </dependency>
 
     </dependencies>
