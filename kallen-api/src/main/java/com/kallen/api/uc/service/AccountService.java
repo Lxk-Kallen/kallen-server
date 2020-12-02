@@ -1,13 +1,8 @@
 package com.kallen.api.uc.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.kallen.api.uc.entity.AccountEntity;
-import com.kallen.api.uc.entity.UserEntity;
 import com.kallen.api.uc.entity.dto.AccountDTO;
 import com.kallen.common.service.CrudService;
-
-import java.util.Map;
 
 /**
  * <p>Title: AccountService</p >
@@ -35,4 +30,24 @@ public interface AccountService extends CrudService<AccountEntity, AccountDTO> {
      * @since 2020/11/26 12:48
     */
     AccountDTO queryAccountByUserIdAndType(Long id, String accountType);
+
+    /**
+     * <p>根据用户ID修改密码</p>
+     *
+     * @param userId        用户ID
+     * @param passwordMD5   加密后的密码
+     * @author Kallen
+     * @since 2020/12/2 16:13
+    */
+    void updateUserPasswordByUserId(Long userId, String passwordMD5);
+
+    /**
+     * <p>根据手机号查询用户信息</p>
+     *
+     * @param mobile            手机号
+     * @return {@link AccountDTO}   用户账户信息
+     * @author Kallen
+     * @since 2020/12/2 16:46
+    */
+    AccountDTO queryAccountByAccount(String mobile);
 }

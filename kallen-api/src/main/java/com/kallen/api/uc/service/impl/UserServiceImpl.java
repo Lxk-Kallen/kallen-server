@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.Snowflake;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -15,7 +16,9 @@ import com.kallen.api.uc.entity.UserEntity;
 import com.kallen.api.uc.entity.dto.AccountDTO;
 import com.kallen.api.uc.entity.dto.AuthUserAccountDTO;
 import com.kallen.api.uc.entity.dto.UserDTO;
+import com.kallen.api.uc.entity.req.BindPasswordReq;
 import com.kallen.api.uc.entity.req.CodeLoginReq;
+import com.kallen.api.uc.entity.req.PasswordLoginReq;
 import com.kallen.api.uc.entity.req.SendCodeReq;
 import com.kallen.api.uc.entity.vo.LoginSuccessVO;
 import com.kallen.api.uc.entity.vo.UserVO;
@@ -138,6 +141,71 @@ public class UserServiceImpl extends CrudServiceImpl<UserDao, UserEntity, UserDT
     public UserDTO getById(Long userId) {
         UserEntity userEntity = baseDao.selectById(userId);
         return userEntity == null ? null : ConvertUtils.sourceToTarget(userEntity, UserDTO.class);
+    }
+
+    /**
+     * <p>绑定密码</p>
+     *
+     * @param bindPasswordReq   入参实体
+     * @author Kallen
+     * @since 2020/12/2 15:42
+     */
+    @Override
+    public void bindPassword(BindPasswordReq bindPasswordReq) {
+        Long userId = bindPasswordReq.getUserId();
+        String password = bindPasswordReq.getPassword();
+
+        // MD5加密密码
+        String passwordMD5 = DigestUtil.bcrypt(password);
+
+        accountService.updateUserPasswordByUserId(userId, passwordMD5);
+    }
+
+    /**
+     * <p>手机号密码登录</p>
+     *
+     * @param passwordLoginReq          入参实体
+     * @return {@link LoginSuccessVO}   用户账号信息
+     * @author Kallen
+     * @since 2020/12/2 16:36
+     */
+    @Override
+    public LoginSuccessVO passwordLogin(PasswordLoginReq passwordLoginReq) {
+        String mobile = passwordLoginReq.getMobile();
+        String password = passwordLoginReq.getPassword();
+
+        // 根据手机号密码登录
+        LoginSuccessVO loginSuccessVO = doLoginByPassword(mobile, password);
+
+        return loginSuccessVO;
+    }
+
+    /**
+     * <p>根据手机号密码登录</p>
+     *
+     * @param mobile        手机号
+     * @param password      密码
+     * @return {@link LoginSuccessVO}   用户信息
+     * @author Kallen
+     * @since 2020/12/2 16:39
+    */
+    @Transactional(rollbackFor = KallenException.class)
+    public LoginSuccessVO doLoginByPassword(String mobile, String password) {
+        // 根据手机号查询用户信息
+        AccountDTO accountDTO = accountService.queryAccountByAccount(mobile);
+
+        if (accountDTO == null) {
+            throw new KallenException("登录失败，请检查账号密码");
+        }
+
+        // 如果存在该用户，获取该用户的密码
+        String passwordMD5 = accountDTO.getPassword();
+
+        if (DigestUtil.bcryptCheck(password, passwordMD5)) {
+            return doLoginByMobile(mobile);
+        } else {
+            throw new KallenException("登录失败，请检查账号密码");
+        }
     }
 
     /**

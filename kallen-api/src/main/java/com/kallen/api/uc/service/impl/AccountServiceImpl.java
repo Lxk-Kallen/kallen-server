@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.kallen.api.uc.dao.AccountDao;
 import com.kallen.api.uc.entity.AccountEntity;
-import com.kallen.api.uc.entity.UserEntity;
 import com.kallen.api.uc.entity.dto.AccountDTO;
 import com.kallen.api.uc.service.AccountService;
+import com.kallen.common.constant.DictCode;
 import com.kallen.common.service.impl.CrudServiceImpl;
 import com.kallen.common.utils.ConvertUtils;
 import org.springframework.stereotype.Service;
@@ -56,6 +56,38 @@ public class AccountServiceImpl extends CrudServiceImpl<AccountDao, AccountEntit
                 .eq(AccountEntity::getType, accountType));
     }
 
+    /**
+     * <p>根据用户ID修改密码</p>
+     *
+     * @param userId        用户ID
+     * @param passwordMD5   加密后的密码
+     * @author Kallen
+     * @since 2020/12/2 16:13
+     */
+    @Override
+    public void updateUserPasswordByUserId(Long userId, String passwordMD5) {
+        // 查询用户信息
+        AccountDTO accountDTO = queryAccountByUserIdAndType(userId, DictCode.ACCOUNT_TYPE.MOBILE.getValue());
+        accountDTO.setPassword(passwordMD5);
+
+        updateUserPasswordByUserId(accountDTO, new LambdaQueryWrapper<AccountEntity>()
+                        .eq(AccountEntity::getUserId, userId));
+    }
+
+    /**
+     * <p>根据手机号查询用户信息</p>
+     *
+     * @param mobile            手机号
+     * @return {@link AccountDTO}   用户账户信息
+     * @author Kallen
+     * @since 2020/12/2 16:46
+     */
+    @Override
+    public AccountDTO queryAccountByAccount(String mobile) {
+        return queryAccountByAccount(new LambdaQueryWrapper<AccountEntity>()
+                .eq(AccountEntity::getAccount, mobile));
+    }
+
     //<editor-fold desc="私有方法">
 
     /**
@@ -67,6 +99,32 @@ public class AccountServiceImpl extends CrudServiceImpl<AccountDao, AccountEntit
      * @since 2020/11/26 12:52
     */
     private AccountDTO queryAccount(LambdaQueryWrapper<AccountEntity> lambdaQueryWrapper) {
+        AccountEntity accountEntity = baseDao.selectOne(lambdaQueryWrapper);
+        return accountEntity == null ? null : ConvertUtils.sourceToTarget(accountEntity, AccountDTO.class);
+    }
+
+    /**
+     * <p>根据用户ID修改密码</p>
+     *
+     * @param accountDTO            用户信息
+     * @param lambdaQueryWrapper    lambda条件构造器
+     * @author Kallen
+     * @since 2020/12/2 16:18
+    */
+    private void updateUserPasswordByUserId(AccountDTO accountDTO, LambdaQueryWrapper<AccountEntity> lambdaQueryWrapper) {
+        AccountEntity accountEntity = ConvertUtils.sourceToTarget(accountDTO, AccountEntity.class);
+        baseDao.update(accountEntity, lambdaQueryWrapper);
+    }
+
+    /**
+     * <p>根据手机号查询用户信息</p>
+     *
+     * @param lambdaQueryWrapper    lambda条件构造器
+     * @return {@link AccountDTO}   用户信息
+     * @author Kallen
+     * @since 2020/12/2 16:48
+     */
+    private AccountDTO queryAccountByAccount(LambdaQueryWrapper<AccountEntity> lambdaQueryWrapper) {
         AccountEntity accountEntity = baseDao.selectOne(lambdaQueryWrapper);
         return accountEntity == null ? null : ConvertUtils.sourceToTarget(accountEntity, AccountDTO.class);
     }

@@ -2,14 +2,16 @@ package com.kallen.api.uc.service;
 
 import com.kallen.api.uc.entity.UserEntity;
 import com.kallen.api.uc.entity.dto.UserDTO;
+import com.kallen.api.uc.entity.req.BindPasswordReq;
 import com.kallen.api.uc.entity.req.CodeLoginReq;
+import com.kallen.api.uc.entity.req.PasswordLoginReq;
 import com.kallen.api.uc.entity.req.SendCodeReq;
 import com.kallen.api.uc.entity.vo.LoginSuccessVO;
 import com.kallen.common.service.CrudService;
 
 /**
  * <p>Title: UserService</p >
- * <p>Description: 用户-服务层</p >
+ * <p>Description: 用户-服务层</p>
  * <p>Copyright: Kallen. Copyright(c) 2020</p >
  * <link>http://www.buqu.icu</link>
  * <p>版权所有，侵权必究！</p >
@@ -51,4 +53,23 @@ public interface UserService extends CrudService<UserEntity, UserDTO> {
      * @since 2020/11/26 15:32
     */
     UserDTO getById(Long userId);
+
+    /**
+     * <p>绑定密码</p>
+     *
+     * @param bindPasswordReq   入参实体
+     * @author Kallen
+     * @since 2020/12/2 15:42
+    */
+    void bindPassword(BindPasswordReq bindPasswordReq);
+
+    /**
+     * <p>手机号密码登录</p>
+     *
+     * @param passwordLoginReq          入参实体
+     * @return {@link LoginSuccessVO}   用户账号信息
+     * @author Kallen
+     * @since 2020/12/2 16:36
+    */
+    LoginSuccessVO passwordLogin(PasswordLoginReq passwordLoginReq);
 }

@@ -20,6 +20,7 @@
         <aliyun.dysmsapi.version>1.1.0</aliyun.dysmsapi.version>
         <qcloud.qcloudsms.version>1.0.5</qcloud.qcloudsms.version>
         <poi.version>4.1.2</poi.version>
+        <alipay.version>2.7.1</alipay.version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,22 @@
             <artifactId>kallen-common</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!-- AliPay start -->
+
+        <dependency>
+            <groupId>com.github.javen205</groupId>
+            <artifactId>IJPay-All</artifactId>
+            <version>${alipay.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javen205</groupId>
+            <artifactId>IJPay-AliPay</artifactId>
+            <version>${alipay.version}</version>
+        </dependency>
+
+        <!-- AliPay end -->
 
         <!-- 重试机制 -->
         <dependency>
